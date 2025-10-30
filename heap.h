@@ -28,8 +28,16 @@ struct MinHeap {
     int pop(int weightArr[]) {
         // TODO: remove and return smallest index
         // Replace root with last element, then call downheap()
+        for (int i = 0; i < size; i++) {
+            for (int j = i + 1; j < size; j++) {}
 
-        
+            if (weightArr[i] < weightArr[j]) {
+                int tmp = weightArr[i];
+            }
+
+        }
+
+
         return -1; // placeholder
     }
 
