@@ -5,6 +5,7 @@
 #ifndef HEAP_H
 #define HEAP_H
 
+#include <algorithm>
 #include <iostream>
 using namespace std;
 
@@ -16,11 +17,19 @@ struct MinHeap {
 
     void push(int idx, int weightArr[]) {
         // TODO: insert index at end of heap, restore order using upheap()
+        //puts the idx at the end of the weightArr.
+        weightArr[size] = idx;
+        //restores the order of the heap
+        upheap(idx, weightArr);
+        //updates the size of the heap because an element was added.
+        size++;
     }
 
     int pop(int weightArr[]) {
         // TODO: remove and return smallest index
         // Replace root with last element, then call downheap()
+
+        
         return -1; // placeholder
     }
 
