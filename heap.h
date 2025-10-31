@@ -62,14 +62,16 @@ struct MinHeap {
             int smallest = pos;
 
             //comparing with left child node
-            if (leftChild < size && weightArr[leftChild] < weightArr[pos]) {
-                pos = leftChild;
+            if (leftChild < size && weightArr[leftChild] < weightArr[smallest]) {
+                smallest = leftChild;
             }
-            //comparing with right child node
-            if (rightChild < size && weightArr[rightChild] < weightArr[pos]) {
-                pos = rightChild;
+            //comparing with right child node with left child of the parent
+            //depends if the left Child was smaller than the parent node.
+            if (rightChild < size && weightArr[rightChild] < weightArr[smallest]) {
+                smallest = rightChild;
             }
-            //
+            //if child node is smaller than the parent node swap it
+            //then moves the parent node down
             if (smallest != pos) {
                 swap (weightArr[pos], weightArr[smallest]);
                 pos = smallest;
