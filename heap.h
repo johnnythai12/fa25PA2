@@ -28,25 +28,55 @@ struct MinHeap {
     int pop(int weightArr[]) {
         // TODO: remove and return smallest index
         // Replace root with last element, then call downheap()
-        for (int i = 0; i < size; i++) {
-            for (int j = i + 1; j < size; j++) {}
+        int smallest = weightArr[0];
+        weightArr[0] = weightArr[size-1];
+        size--;
+        downheap(0, weightArr);
 
-            if (weightArr[i] < weightArr[j]) {
-                int tmp = weightArr[i];
-            }
-
-        }
-
-
-        return -1; // placeholder
+        return smallest; // placeholder
     }
 
     void upheap(int pos, int weightArr[]) {
         // TODO: swap child upward while smaller than parent
+        while (pos > 0 ) {
+            //stores the location of the parent node to parentNode
+            int parentNode = (pos - 1)/ 2;
+            //if parentNode is larger than child node swap it
+            //then places the parentNode to the child node.
+            //update the position to the parentNode position.
+            if (weightArr[parentNode] > weightArr[pos]) {
+                swap (weightArr[pos], weightArr[parentNode]);
+                pos = parentNode;
+            } else {
+                break;
+            }
+        }
     }
 
     void downheap(int pos, int weightArr[]) {
         // TODO: swap parent downward while larger than any child
+        while (pos >= 0 ) {
+
+            int leftChild = (pos * 2) + 1;
+            int rightChild = (pos * 2) + 2;
+            int smallest = pos;
+
+            //comparing with left child node
+            if (leftChild < size && weightArr[leftChild] < weightArr[pos]) {
+                pos = leftChild;
+            }
+            //comparing with right child node
+            if (rightChild < size && weightArr[rightChild] < weightArr[pos]) {
+                pos = rightChild;
+            }
+            //
+            if (smallest != pos) {
+                swap (weightArr[pos], weightArr[smallest]);
+                pos = smallest;
+            } else {
+                break;
+            }
+        }
     }
 };
 
