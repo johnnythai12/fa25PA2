@@ -127,7 +127,9 @@ void generateCodes(int root, string codes[]) {
     codesStack.push(make_pair(root, codes[root]));
 
     while (!codesStack.empty()) {
+        //stores the top element of the stack
        pair<int, string> parentNode = codesStack.top();
+  
         codesStack.pop();
         if (leftArr[root] == -1) {
 
