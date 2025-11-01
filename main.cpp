@@ -125,7 +125,6 @@ void generateCodes(int root, string codes[]) {
 
     stack<pair<int, string>> codesStack = {};
     codesStack.push(make_pair(root, codes[root]));
-
     while (!codesStack.empty()) {
         //stores the top element of the stack
         //then get the first and second elements of the element in the stack
@@ -138,7 +137,8 @@ void generateCodes(int root, string codes[]) {
         //checking if it is a leaf node
         if (leftArr[rootNode] == -1 && rightArr[rootNode] == -1) {
             char code = charArr[rootNode];
-            cout << code << "\n";
+            cout << code << endl;
+            cout << rootNode << "\n";
         }
         else {
             if (rightArr[rootNode] != -1) {
@@ -149,6 +149,8 @@ void generateCodes(int root, string codes[]) {
             }
         }
     }
+    cout << "Generated codes for root " << root << "\n";
+
 
 
 
