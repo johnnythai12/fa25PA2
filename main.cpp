@@ -1,6 +1,7 @@
 //
 // Created by Manju Muralidharan on 10/19/25.
-//
+// Depth First Search or DFS for a Graph: https://www.geeksforgeeks.org/dsa/depth-first-search-or-dfs-for-a-graph/
+// Stack in C++ STL: https://www.geeksforgeeks.org/cpp/stack-in-cpp-stl/
 #include <iostream>
 #include <fstream>
 #include <stack>
@@ -121,6 +122,19 @@ void generateCodes(int root, string codes[]) {
     // Use stack<pair<int, string>> to simulate DFS traversal.
     // Left edge adds '0', right edge adds '1'.
     // Record code when a leaf node is reached.
+
+    stack<pair<int, string>> codesStack = {};
+    codesStack.push(make_pair(root, codes[root]));
+
+    while (!codesStack.empty()) {
+       codesStack.pop();
+        if (leftArr[root] == -1) {
+            
+        }
+    }
+
+
+
 }
 
 // Step 5: Print table and encoded message
