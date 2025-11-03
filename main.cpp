@@ -132,6 +132,7 @@ void generateCodes(int root, string codes[]) {
         pair<int, string> parentNode = codesStack.top();
         int rootNode = parentNode.first;
         string code = parentNode.second;
+        
 
         codesStack.pop();
         //checking if it is a leaf node
