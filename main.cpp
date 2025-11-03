@@ -96,10 +96,11 @@ int buildEncodingTree(int nextFree) {
 
     // 2. Push all leaf node indices into the heap.
     heap.push(nextFree, weightArr);
+    int ch = weightArr[nextFree];
 
     int sizeOfHeap = heap.size;
 
-    cout << weightArr[nextFree] << " HEAP SIZE" << endl;
+    cout << ch << " HEAP SIZE" << endl;
     cout << nextFree << " LEAF NODES" << endl;
 
     // 3. While the heap size is greater than 1:
