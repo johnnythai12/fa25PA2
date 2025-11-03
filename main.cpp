@@ -132,21 +132,26 @@ void generateCodes(int root, string codes[]) {
         pair<int, string> parentNode = codesStack.top();
         int rootNode = parentNode.first;
         string code = parentNode.second;
-        
+        cout << charArr[rootNode] << "-----" << code << "\n";
+
 
         codesStack.pop();
         //checking if it is a leaf node
         if (leftArr[rootNode] == -1 && rightArr[rootNode] == -1) {
-            char code = charArr[rootNode];
-            cout << code << endl;
+            char code1 = charArr[rootNode];
+            cout << code1 << endl;
             cout << rootNode << "\n";
+            cout << rightArr[rootNode] << "letter222" << endl;
+            cout << leftArr[rootNode] << "letter223" << endl;
         }
         else {
             if (rightArr[rootNode] != -1) {
                 codesStack.push(make_pair(rightArr[rootNode], code + '1'));
+                cout << rightArr[rootNode] << "letter" << endl;
             }
             if (leftArr[rootNode] != -1) {
                 codesStack.push(make_pair(leftArr[rootNode], code + '0'));
+                cout << rightArr[rootNode] << "letter2" << endl;
             }
         }
     }
