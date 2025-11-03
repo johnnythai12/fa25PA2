@@ -97,22 +97,33 @@ int buildEncodingTree(int nextFree) {
     // 2. Push all leaf node indices into the heap.
     heap.push(nextFree, weightArr);
 
+    int sizeOfHeap = heap.size;
+
+    cout << weightArr[nextFree] << " HEAP SIZE" << endl;
+    cout << nextFree << " LEAF NODES" << endl;
+
     // 3. While the heap size is greater than 1:
     //    - Pop two smallest nodes
     //    - Create a new parent node with combined weight
     //    - Set left/right pointers
     //    - Push new parent index back into the heap
-     //nodes[MAX_NODES];
-    while (heap.size > 1) {
+
+     while (sizeOfHeap >= 1) {
        int leftChild = heap.pop(weightArr);
+         cout << leftChild << " left child " << weightArr[leftChild] << endl;
        int rightChild = heap.pop(weightArr);
+         cout << rightChild << " right child " << weightArr[rightChild] << endl;
        int parentNode = nextFree++;
+         cout << parentNode << " PARENTNNFNFN----- " << endl;
        weightArr[parentNode] = weightArr[leftChild] + weightArr[rightChild];
        heap.push(parentNode, weightArr);
+         sizeOfHeap = heap.size + 1;
+        cout << sizeOfHeap << " parent node ";
     }
 
     // 4. Return the index of the last remaining node (root)
     int root = heap.pop(weightArr);
+
     return root; // placeholder
 }
 
@@ -132,30 +143,30 @@ void generateCodes(int root, string codes[]) {
         pair<int, string> parentNode = codesStack.top();
         int rootNode = parentNode.first;
         string code = parentNode.second;
-        cout << charArr[rootNode] << "-----" << code << "\n";
+        //cout << charArr[rootNode] << "-----" << code << "\n";
 
 
         codesStack.pop();
         //checking if it is a leaf node
         if (leftArr[rootNode] == -1 && rightArr[rootNode] == -1) {
             char code1 = charArr[rootNode];
-            cout << code1 << endl;
-            cout << rootNode << "\n";
-            cout << rightArr[rootNode] << "letter222" << endl;
-            cout << leftArr[rootNode] << "letter223" << endl;
+            //cout << code1 << endl;
+            //cout << rootNode << "\n";
+            //cout << rightArr[rootNode] << "letter222" << endl;
+            //cout << leftArr[rootNode] << "letter223" << endl;
         }
         else {
             if (rightArr[rootNode] != -1) {
                 codesStack.push(make_pair(rightArr[rootNode], code + '1'));
-                cout << rightArr[rootNode] << "letter" << endl;
+                //cout << rightArr[rootNode] << "letter" << endl;
             }
             if (leftArr[rootNode] != -1) {
                 codesStack.push(make_pair(leftArr[rootNode], code + '0'));
-                cout << rightArr[rootNode] << "letter2" << endl;
+                //cout << rightArr[rootNode] << "letter2" << endl;
             }
         }
     }
-    cout << "Generated codes for root " << root << "\n";
+    //cout << "Generated codes for root " << root << "\n";
 
 
 
