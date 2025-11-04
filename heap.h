@@ -18,19 +18,21 @@ struct MinHeap {
     void push(int idx, int weightArr[]) {
         // TODO: insert index at end of heap, restore order using upheap()
         //puts the idx at the end of the weightArr.
-        data[size] = idx;
-        //restores the order of the heap
-        upheap(size, weightArr);
-        //updates the size of the heap because an element was added.
         size++;
+        int pos = size - 1;
+        data[pos] = idx;
+        //restores the order of the heap
+        upheap(pos, weightArr);
     }
 
     int pop(int weightArr[]) {
         // TODO: remove and return smallest index
         // Replace root with last element, then call downheap()
+        if (size == 0) return -1;
         int smallest = data[0];
         data[0] = data[size-1];
         size--;
+
         downheap(0, weightArr);
 
         return smallest; // placeholder
@@ -55,28 +57,28 @@ struct MinHeap {
 
     void downheap(int pos, int weightArr[]) {
         // TODO: swap parent downward while larger than any child
-        while (pos >= 0 ) {
+        while (true ) {
 
             int leftChild = (pos * 2) + 1;
             int rightChild = (pos * 2) + 2;
+
             int smallest = pos;
             //comparing with left child node
-            if (leftChild < size && weightArr[data[leftChild]] < weightArr[data[smallest]]) {
+            if (leftChild < size && weightArr[data[leftChild]] < weightArr[smallest]) {
                 smallest = leftChild;
             }
             //comparing with right child node with left child of the parent
             //depends if the left Child was smaller than the parent node.
-            if (rightChild < size && weightArr[data[rightChild]] < weightArr[data[smallest]]) {
+            if (rightChild < size && weightArr[data[rightChild]] < weightArr[smallest]) {
                 smallest = rightChild;
             }
             //if child node is smaller than the parent node swap it
             //then moves the parent node down
-            if (smallest != pos) {
-                swap (data[pos], data[smallest]);
-                pos = smallest;
-            } else {
+            if (smallest == pos) {
                 break;
             }
+                swap (data[pos], data[smallest]);
+                pos = smallest;
         }
     }
 };

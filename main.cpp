@@ -92,14 +92,15 @@ int createLeafNodes(int freq[]) {
 int buildEncodingTree(int nextFree) {
     // TODO:
     // 1. Create a MinHeap object.
-    MinHeap heap;
+    MinHeap heap= MinHeap();
 
     // 2. Push all leaf node indices into the heap.
-    for (int i = 0; i < nextFree; i++) {
-        heap.push(i, weightArr);
+    for (int i = 0; i < 26; i++) {
+        if (weightArr[i]>0) {
+            heap.push(i, weightArr);
+        }
     }
-
-    cout << heap.size << " HEAP SIZE" << endl;
+    //cout << heap.size << " HEAP SIZE" << endl;
     // 3. While the heap size is greater than 1:
     //    - Pop two smallest nodes
     //    - Create a new parent node with combined weight
@@ -107,21 +108,26 @@ int buildEncodingTree(int nextFree) {
     //    - Push new parent index back into the heap
      while (heap.size > 1) {
        int leftChild = heap.pop(weightArr);
-         //heap.push(leftChild, leftArr);
        int rightChild = heap.pop(weightArr);
-         //heap.push(rightChild, rightArr);
        int parentNode = nextFree++;
 
+         if ( weightArr[leftChild] <= weightArr[rightChild] ) {
+             leftArr[parentNode] = leftChild;
+             rightArr[parentNode] = rightChild;
+         }
+         else {
+             leftArr[parentNode] = rightChild;
+             rightArr[parentNode] = leftChild;
+         }
        weightArr[parentNode] = weightArr[leftChild] + weightArr[rightChild];
-       leftArr[parentNode] = leftChild;
-       rightArr[parentNode] = rightChild;
+         charArr[parentNode] = '\0';
        heap.push(parentNode, weightArr);
 
     }
 
     // 4. Return the index of the last remaining node (root)
-    int root = heap.pop(weightArr);
-    return root; // placeholder
+    int parentNode = heap.pop(weightArr);
+    return parentNode; // placeholder
 }
 
 // Step 4: Use an STL stack to generate codes
@@ -130,9 +136,8 @@ void generateCodes(int root, string codes[]) {
     // Use stack<pair<int, string>> to simulate DFS traversal.
     // Left edge adds '0', right edge adds '1'.
     // Record code when a leaf node is reached.
-
     stack<pair<int, string>> codesStack;
-    codesStack.push(make_pair(root, codes[root]));
+    codesStack.push(make_pair(root, ""));
     while (!codesStack.empty()) {
         //stores the top element of the stack
         //then get the first and second elements of the element in the stack
@@ -145,18 +150,18 @@ void generateCodes(int root, string codes[]) {
 
         //checking if it is a leaf node
         if (leftArr[rootNode] == -1 && rightArr[rootNode] == -1) {
-            codes[charArr[rootNode] - 'a'] = code;
-            cout << charArr[rootNode] << "-----" << code << "\n";
-
+          int value = charArr[rootNode] - 'a';
+            codes[value] = code;
+            //cout << charArr[rootNode] << "-----" << code << "\n";
         }
         else {
             if (leftArr[rootNode] != -1) {
-                codesStack.push(make_pair(leftArr[rootNode] , code + '0'));
+                codesStack.push({leftArr[rootNode] , code + '0'});
             }
             if (rightArr[rootNode] != -1) {
-                codesStack.push(make_pair(rightArr[rootNode] , code + '1'));
+                codesStack.push({rightArr[rootNode] , code + '1'
+            });
             }
-
 
         }
     }
